@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Tracking List</title>
+</head>
+<body>
+    <h1>Task Tracking List</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Task Name</th>
+                <th>Status</th>
+                <th>Remarks</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for tracking in trackings %}
+            <tr>
+                <td>{{ tracking.taskAssignment.taskNumber.taskName }}</td>
+                <td>{{ tracking.status }}</td>
+                <td>{{ tracking.remarks }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

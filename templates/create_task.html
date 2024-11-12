@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Task</title>
+    <!-- Add Tailwind CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 font-sans">
+
+    <div class="container mx-auto p-6">
+        <h1 class="text-3xl font-bold text-gray-800 mb-6">Create New Task</h1>
+
+        <div class="bg-white shadow-lg rounded-lg p-8">
+            <form method="POST">
+                {% csrf_token %}
+                
+                <!-- Task Name -->
+                <div class="mb-4">
+                    <label for="taskName" class="block text-sm font-medium text-gray-700">Task Name</label>
+                    <input type="text" name="taskName" id="taskName" value="{{ form.taskName.value }}" 
+                           class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                    {% if form.taskName.errors %}
+                        <div class="text-red-500 text-xs mt-1">
+                            {% for error in form.taskName.errors %}
+                                <p>{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+
+                <!-- Task Description -->
+                <div class="mb-4">
+                    <label for="taskDescription" class="block text-sm font-medium text-gray-700">Task Description</label>
+                    <textarea name="taskDescription" id="taskDescription" rows="4" placeholder="Enter task description"
+                              class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">{{ form.taskDescription.value }}</textarea>
+                    {% if form.taskDescription.errors %}
+                        <div class="text-red-500 text-xs mt-1">
+                            {% for error in form.taskDescription.errors %}
+                                <p>{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+
+                <!-- Assigned By -->
+                <div class="mb-4">
+                    <label for="assignedBy" class="block text-sm font-medium text-gray-700">Assigned By</label>
+                    <select name="assignedBy" id="assignedBy" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                        {% for employee in form.assignedBy.field.queryset %}
+                            <option value="{{ employee.pk }}" {% if employee.pk == form.assignedBy.value %}selected{% endif %}>
+                                {{ employee.empName }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                    {% if form.assignedBy.errors %}
+                        <div class="text-red-500 text-xs mt-1">
+                            {% for error in form.assignedBy.errors %}
+                                <p>{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+
+                <!-- Assigned Date -->
+                <div class="mb-4">
+                    <label for="assignedDate" class="block text-sm font-medium text-gray-700">Assigned Date</label>
+                    <input type="date" name="assignedDate" id="assignedDate" value="{{ form.assignedDate.value }}" 
+                           class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                    {% if form.assignedDate.errors %}
+                        <div class="text-red-500 text-xs mt-1">
+                            {% for error in form.assignedDate.errors %}
+                                <p>{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+
+                <!-- Deadline -->
+                <div class="mb-4">
+                    <label for="deadline" class="block text-sm font-medium text-gray-700">Deadline</label>
+                    <input type="date" name="deadline" id="deadline" value="{{ form.deadline.value }}" 
+                           class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                    {% if form.deadline.errors %}
+                        <div class="text-red-500 text-xs mt-1">
+                            {% for error in form.deadline.errors %}
+                                <p>{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+
+                <!-- Submit Button -->
+                <div class="mt-6">
+                    <button type="submit" class="bg-blue-500 text-white px-6 py-3 rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
+                        Save
+                    </button>
+                </div>
+            </form>
+
+            <!-- Back Link -->
+            <div class="mt-4">
+                <a href="{% url 'task_list' %}" class="text-blue-500 hover:text-blue-700">
+                    Back to Task List
+                </a>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

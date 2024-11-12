@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Assignment List</title>
+</head>
+<body>
+    <h1>Task Assignment List</h1>
+    <a href="{% url 'create_task_assignment' %}">Create New Task Assignment</a>
+    <table>
+        <thead>
+            <tr>
+                <th>Employee Name</th>
+                <th>Task Name</th>
+                <th>Assigned Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for assignment in assignments %}
+            <tr>
+                <td>{{ assignment.empId.empName }}</td>
+                <td>{{ assignment.taskNumber.taskName }}</td>
+                <td>{{ assignment.assignedDate }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

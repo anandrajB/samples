@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Employee</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 font-sans">
+
+    <div class="container mx-auto p-6">
+        <h1 class="text-3xl font-bold text-gray-800 mb-4">Update Employee Details</h1>
+        
+        <!-- Back to Employee List Link -->
+        <a href="{% url 'employee_list' %}" class="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600 mb-4 inline-block">
+            Back to Employee List
+        </a>
+
+        <div class="bg-white shadow-lg rounded-lg p-6">
+            <form method="POST">
+                {% csrf_token %}
+                <div class="grid grid-cols-1 gap-4">
+                    <!-- Employee ID (Non-editable) -->
+                    <div>
+                        <label for="empId" class="block text-sm font-semibold text-gray-600">Employee ID</label>
+                        <input type="text" id="empId" name="empId" value="{{ form.empId.value }}" class="mt-1 px-4 py-2 w-full border border-gray-300 rounded-md" readonly>
+                    </div>
+                    
+                    <!-- Employee Name -->
+                    <div>
+                        <label for="empName" class="block text-sm font-semibold text-gray-600">Name</label>
+                        <input type="text" id="empName" name="empName" value="{{ form.empName.value }}" class="mt-1 px-4 py-2 w-full border border-gray-300 rounded-md">
+                    </div>
+
+                    <!-- Employee Email -->
+                    <div>
+                        <label for="emailId" class="block text-sm font-semibold text-gray-600">Email</label>
+                        <input type="email" id="emailId" name="emailId" value="{{ form.emailId.value }}" class="mt-1 px-4 py-2 w-full border border-gray-300 rounded-md">
+                    </div>
+
+                    <!-- Employee Phone Number -->
+                    <div>
+                        <label for="phoneNumber" class="block text-sm font-semibold text-gray-600">Phone Number</label>
+                        <input type="text" id="phoneNumber" name="phoneNumber" value="{{ form.phoneNumber.value }}" class="mt-1 px-4 py-2 w-full border border-gray-300 rounded-md">
+                    </div>
+
+                    <!-- Employee Designation -->
+                    <div>
+                        <label for="designation" class="block text-sm font-semibold text-gray-600">Designation</label>
+                        <input type="text" id="designation" name="designation" value="{{ form.designation.value }}" class="mt-1 px-4 py-2 w-full border border-gray-300 rounded-md">
+                    </div>
+                    
+                    <!-- Submit Button -->
+                    <div class="mt-4">
+                        <button type="submit" class="bg-blue-500 text-white px-6 py-2 rounded hover:bg-blue-600 w-full">
+                            Update Employee
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>

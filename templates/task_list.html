@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task List</title>
+    <!-- Add Tailwind CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 font-sans">
+
+    <div class="container mx-auto p-6">
+        <h1 class="text-3xl font-bold text-gray-800 mb-6">Task List</h1>
+
+        <!-- Create New Task Button -->
+        <a href="{% url 'create_task' %}" class="bg-blue-500 text-white px-6 py-2 rounded hover:bg-blue-600 mb-4 inline-block">
+            Create New Task
+        </a>
+        <button type="button" onclick="window.location.href='{% url 'home' %}'" class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-md ml-3 text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Home</button>
+        
+        <div class="overflow-x-auto bg-white shadow-lg rounded-lg">
+            <table class="min-w-full text-left table-auto">
+                <thead class="bg-gray-200 text-gray-600">
+                    <tr>
+                        <th class="px-6 py-3 text-sm font-semibold uppercase">Task Number</th>
+                        <th class="px-6 py-3 text-sm font-semibold uppercase">Task Name</th>
+                        <th class="px-6 py-3 text-sm font-semibold uppercase">Assigned By</th>
+                        <th class="px-6 py-3 text-sm font-semibold uppercase">Assigned Date</th>
+                        <th class="px-6 py-3 text-sm font-semibold uppercase">Deadline</th>
+                        <th class="px-6 py-3 text-sm font-semibold uppercase">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for task in tasks %}
+                    <tr class="border-b border-gray-200">
+                        <td class="px-6 py-4 text-sm text-gray-800">{{ task.taskNumber }}</td>
+                        <td class="px-6 py-4 text-sm text-gray-800">{{ task.taskName }}</td>
+                        <td class="px-6 py-4 text-sm text-gray-800">{{ task.assignedBy.empName }}</td>
+                        <td class="px-6 py-4 text-sm text-gray-800">{{ task.assignedDate }}</td>
+                        <td class="px-6 py-4 text-sm text-gray-800">{{ task.deadline }}</td>
+                        <td class="px-6 py-4 text-sm text-gray-800 flex space-x-4">
+                            <!-- Update Button -->
+                            <a href="{% url 'update_task' task.pk %}" class="text-blue-500 p-2 rounded-md border-solid border-2 border-blue-400 shadow-lg hover:text-blue-700">
+                                Update
+                            </a>
+                            <!-- Delete Button -->
+                            <form action="{% url 'delete_task' task.pk %}" method="POST" class="inline">
+                                {% csrf_token %}
+                                <button type="submit" class="text-red-500 rounded-md border-solid border-2 border-red-600 p-2 shadow-lg hover:text-red-700">
+                                    Delete
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</body>
+</html>

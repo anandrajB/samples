@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee List</title>
+    <!-- Add Tailwind CDN or local build -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 font-sans">
+
+    <div class="container mx-auto p-6">
+        <h1 class="text-3xl font-bold text-gray-800 mb-4">Employee List</h1>
+        
+        <a href="{% url 'create_employee' %}" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 mb-4 inline-block">
+            Create New Employee
+        </a>
+        <button type="button" onclick="window.location.href='{% url 'home' %}'" class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-md ml-3 text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Home</button>
+        
+        <div class="overflow-x-auto bg-white shadow-lg rounded-lg">
+            <table class="min-w-full text-left table-auto">
+                <thead>
+                    <tr class="bg-gray-200 text-gray-600">
+                        <th class="px-6 py-3 text-sm font-semibold uppercase">Employee ID</th>
+                        <th class="px-6 py-3 text-sm font-semibold uppercase">Name</th>
+                        <th class="px-6 py-3 text-sm font-semibold uppercase">Email</th>
+                        <th class="px-6 py-3 text-sm font-semibold uppercase">Phone Number</th>
+                        <th class="px-6 py-3 text-sm font-semibold uppercase">Designation</th>
+                        <th class="pl-14 text-sm font-semibold uppercase">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for employee in employees %}
+                    <tr class="border-b border-gray-200">
+                        <td class="px-6 py-4 text-sm text-gray-800">{{ employee.empId }}</td>
+                        <td class="px-6 py-4 text-sm text-gray-800">{{ employee.empName }}</td>
+                        <td class="px-6 py-4 text-sm text-gray-800">{{ employee.emailId }}</td>
+                        <td class="px-6 py-4 text-sm text-gray-800">{{ employee.phoneNumber }}</td>
+                        <td class="px-6 py-4 text-sm text-gray-800">{{ employee.designation }}</td>
+                        <td class="px-6 py-4 text-sm text-gray-800 flex space-x-4">
+                            <!-- Update Button -->
+                            <a href="{% url 'update_employee' employee.empId %}" class="text-blue-500 p-2 rounded-md border-solid border-2 border-blue-400 shadow-lg hover:text-blue-700">
+                                Update
+                            </a>
+                            <!-- Delete Button -->
+                            <form action="{% url 'delete_employee' employee.empId %}" method="POST" class="inline">
+                                {% csrf_token %}
+                                <button type="submit" class="text-red-500 rounded-md border-solid border-2 border-red-600 p-2 shadow-lg hover:text-red-700">
+                                    Delete
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</body>
+</html>
