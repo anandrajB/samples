@@ -2,7 +2,7 @@ from django.db import models
 
 
 class Employee(models.Model):
-    empId = models.AutoField(primary_key=True)
+    empId = models.IntegerField(unique=True)
     empName = models.CharField(max_length=100)
     phoneNumber = models.CharField(max_length=15)
     emailId = models.EmailField()
